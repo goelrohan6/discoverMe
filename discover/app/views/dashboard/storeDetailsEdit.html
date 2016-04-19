@@ -5,13 +5,41 @@
     <h3 class="modal-title">Edit Store Details [ID: {{store.id}}]</h3>
 </div>
 <div class="modal-body">
-            <div class="table-responsive">
+    <form name="store_form" class="form-horizontal" role="form" novalidate>
+        <form-element label="TITLE" mod="store">
+            <input type="text" class="form-control" name="title" placeholder="Title" ng-model="store.title" focus/>
+        </form-element>
+        <form-element label="DESCRIPTION" mod="store">
+            <input type="text" class="form-control" name="description" placeholder="Description" ng-model="store.description" focus/>
+        </form-element>
+        <form-element label="PHONE" mod="store">
+            <input type="number" class="form-control" name="phone" placeholder="Phone" ng-model="store.phone" focus/>
+        </form-element>
+
+        <div class="space"></div>
+        <div class="space-4"></div>
+        <div class="modal-footer">
+            <form-element label="">
+                <div class="text-right">
+                    <a class="btn btn-sm btn-outline btn-primary btn-rounded" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
+                    <button ng-click="savestore(store);" ng-disabled="store_form.$invalid || enableUpdate" class="btn btn-sm btn-success btn-outline btn-rounded" type="submit">
+                        <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                    </button>
+                    <a class="btn btn-sm btn-outline btn-warning btn-rounded">Next</a>
+                </div>
+                <div class="text-left">
+                    
+                </div>
+
+    </form>
+
+            <!-- <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <tbody>
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label">Name</label>
+                                    <label for="input" class="col-sm-2 control-label" ng-model="place.name">Name</label>
                                     <div class="col-sm-10">
                                         <input type="number" name="" id="input" class="form-control" value="" min="6" min="6" max="" step="" required="required" title="">
                                     </div>
@@ -51,5 +79,5 @@
                         
                     </tbody>
                 </table>
-            </div>
+            </div> -->
       </div>
