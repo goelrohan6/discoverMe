@@ -1,23 +1,27 @@
 <div>
-    <a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Reports</a>
+    <a type="button" ng-click="openDetails(store);" class="pull-right btn btn-success btn-outline btn-rounded">Add New Store</a>
     <h2>Overview <small>Why is Ani Theme so awesome?</small></h2>
     <google-map-locator class="google-map" location="{{location}}" radius="" on-location-initialize="onLocationInitialize(location)" on-location-change="onLocationChange(location)" on-map-loaded="onMapLoaded(map)">
     </google-map-locator>
     <h1 ng-bind="c.latitude"></h1>
     <h1>{{c.longitude}}                </h1>
-    <div class="jumbotron">
+    <div class="jumbotron" ng-show="stores.length==0">
         <div class="container">
             <h1>Welcome!</h1> I don't want to bloat this Ani Theme Free Edition AngularJS Admin theme with a lot of plugins. To install plugins we have bower. Let's keep it real clean!
             <br />
             <br />
             <p>
-                <a class="btn btn-primary btn-lg btn-outline btn-rounded">Add store</a>
+                <a type="button" ng-click="openDetails(store);" class="btn btn-success btn-lg btn-outline btn-rounded pull-right btn-outline btn-rounded">Add New Store</a>
             </p>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" ng-repeat="c in stores | filter:filterStore | orderBy:['name']">
-            <div class="panel panel-default">
+        <div ng-hide="stores.length>-1" class="spinner">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" ng-repeat="c in stores">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">{{c.title}}</h3>
                     <!-- Nav tabs -->
@@ -30,7 +34,7 @@
                                 <i class="fa fa-clock-o"></i> Details
                             </uib-tab-heading>
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" style="margin-bottom: 0px;">
                                     <tbody>
                                         <tr>
                                             <td><strong> Description</strong></td>
@@ -38,13 +42,22 @@
                                         </tr>
                                         <tr>
                                             <td><strong>Phone</strong></td>
-                                            <td>9899939038</td>
+                                            <td>{{c.phone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status</td>
+                                            <td><a style="box-shadow: 0px;" type="button" class="btn btn-warning" ng-click="changeStoreStatus(c);">{{c.status}} </a></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <center>
+                                                    <a type="button" class="btn btn-success btn-outline btn-rounded btn-lg fa fa-edit " ng-click="openDetails(c);"> Edit </a>
+                                                </center>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <br/>
                             </div>
-                                <a type="button" class="btn btn-success btn-lg fa fa-edit " ng-click="openDetails(c);"> Edit </a>
                         </uib-tab>
                         <uib-tab index="1">
                             <uib-tab-heading>
@@ -60,33 +73,55 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td style="vertical-align: middle;">Monday</td>
-                                            <td>08:00 am </td>
-                                            <td> 10:00 pm </td>
+                                        <tr ng-repeat="day in timings">
+                                            <td style="vertical-align: middle;">{{day.day}}</td>
+                                            <td> {{day.start}} </td>
+                                            <td> {{day.end}} </td>
                                         </tr>
                                         <tr>
-                                            <td style="vertical-align: middle;">Tuesday</td>
-                                            <td>08:00 am </td>
-                                            <td> 10:00 pm </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="vertical-align: middle;">Wednesday</td>
-                                            <td>08:00 am </td>
-                                            <td> 10:00 pm </td>
+                                            <td colspan="3">
+                                                <center>
+                                                    <a type="button" class="btn btn-success btn-lg btn-outline btn-rounded fa fa-edit " ng-click="openTimings(timings);"> Edit </a>
+                                                </center>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <br/>
                             </div>
-                                <a type="button" class="btn btn-success btn-lg fa fa-edit " ng-click="openTimings(c);"> Edit </a>
                         </uib-tab>
                         <uib-tab index="2">
                             <uib-tab-heading>
                                 <i class="fa fa-clock-o"></i> Location
                             </uib-tab-heading>
-                            <br/>
-                            <a type="button" class="btn btn-success btn-lg fa fa-edit " ng-click="openLocation(c,'lg');"> Edit </a>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong> Address</strong></td>
+                                            <td>{{c.address}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Latitude</td>
+                                            <td>{{c.latitude}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Longitude</td>
+                                            <td>{{c.longitude}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Radius</strong></td>
+                                            <td>{{c.radius}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <center>
+                                                    <a type="button" class="btn btn-success btn-lg btn-outline btn-rounded fa fa-edit " ng-click="openLocation(c,'lg');"> Edit </a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </uib-tab>
                     </uib-tabset>
                 </div>

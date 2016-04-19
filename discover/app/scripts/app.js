@@ -8,6 +8,7 @@
  *
  * Main module of the application.
  */
+
 angular
     .module('yapp', [
         'ui.router',
@@ -15,7 +16,11 @@ angular
         'ui.bootstrap',
         'angular-location-picker'
     ])
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($httpProvider, $stateProvider, $urlRouterProvider) {
+        $httpProvider.defaults.headers.common = {};
+        $httpProvider.defaults.headers.post = {};
+        $httpProvider.defaults.headers.put = {};
+        $httpProvider.defaults.headers.patch = {};
 
         $urlRouterProvider.when('/dashboard', '/dashboard/stores');
         $urlRouterProvider.otherwise('/login');
@@ -56,6 +61,9 @@ angular
             });
 
     })
+    .constant('_',
+     window._
+     )
     .run(function($rootScope, $location, loginData) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             $rootScope.authenticated = false;
