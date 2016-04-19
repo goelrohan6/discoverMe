@@ -105,9 +105,67 @@ angular.module('yapp')
                 }
             });
         };
+        $scope.openStore = function(p, size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'views/dashboard/addStore.html',
+                controller: 'addStoreCtrl',
+                size: size,
+                resolve: {
+                    item: function() {
+                        return p;
+                    }
+                }
+            });
+            modalInstance.result.then(function(selectedObject) {
+                if (selectedObject.save == "insert") {
+                    $scope.stores.push(selectedObject);
+                    $scope.stores = $filter('orderBy')($scope.stores, 'id', 'reverse');
+                } else if (selectedObject.save == "update") {
+                    p.description = selectedObject.description;
+                    p.title = selectedObject.title;
+                }
+            });
+        };
+    })
+    .controller('addStoreCtrl', function($scope, $uibModalInstance, item, Data) {
+
+        $scope.store = angular.copy(item);
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('Close');
+        };
+        var original = item;
+        $scope.isClean = function() {
+            return angular.equals(original, $scope.store);
+        }
+        $scope.savestore = function(store) {
+            store.uid = $scope.uid;
+            if (store.id > 0) {
+                Data.put('places/' + store.id, store).then(function(result) {
+                    if (result.status != 'error') {
+                        var x = angular.copy(store);
+                        x.save = 'update';
+                        $uibModalInstance.close(x);
+                    } else {
+                        console.log(result);
+                    }
+                });
+            } else {
+                store.status = 'Active';
+                store.merchant_id = 1;
+                Data.post('places', store).then(function(result) {
+                    if (result.status != 'error') {
+                        var x = angular.copy(store);
+                        x.save = 'insert';
+                        x.id = result.data;
+                        $uibModalInstance.close(x);
+                    } else {
+                        console.log(result);
+                    }
+                });
+            }
+        };
     })
     .controller('storeDetailsEditCtrl', function($scope, $uibModalInstance, item, Data) {
-
 
         $scope.store = angular.copy(item);
         $scope.cancel = function() {
@@ -199,7 +257,6 @@ angular.module('yapp')
     })
     .controller('storeLocationEditCtrl', function($scope, $uibModalInstance, item, Data) {
 
-        $scope.location = { latitude: 12.8139068, longitude: 77.6516683 };
         $scope.onLocationInitialize = function(location) {
             console.log("=====from controller=======");
         }

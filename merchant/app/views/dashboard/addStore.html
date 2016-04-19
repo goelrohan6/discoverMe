@@ -1,0 +1,185 @@
+<button type="button" class="close" ng-click="cancel();">
+    <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+</button>
+<div class="modal-header">
+    <h3 class="modal-title">Add new Store</h3>
+</div>
+<div class="modal-body">
+    <form name="store_form" class="form-horizontal" role="form" novalidate>
+        <!-- 
+        <form-element label="TITLE" mod="store">
+            <input type="text" class="form-control" name="title" placeholder="Title" ng-model="store.title" focus/>
+        </form-element>
+        <form-element label="DESCRIPTION" mod="store">
+            <input type="text" class="form-control" name="description" placeholder="Description" ng-model="store.description" focus/>
+        </form-element>
+        <form-element label="PHONE" mod="store">
+            <input type="number" class="form-control" name="phone" placeholder="Phone" ng-model="store.phone" focus/>
+        </form-element>
+
+        <div class="space"></div>
+        <div class="space-4"></div>
+        <div class="modal-footer">
+            <form-element label="">
+                <div class="text-right">
+                    <a class="btn btn-sm btn-outline btn-primary btn-rounded" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
+                    <button ng-click="savestore(store);" ng-disabled="store_form.$invalid || enableUpdate" class="btn btn-sm btn-success btn-outline btn-rounded" type="submit">
+                        <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                    </button>
+                    <a class="btn btn-sm btn-outline btn-warning btn-rounded">Next</a>
+                </div>
+                <div class="text-left">
+                    
+                </div>
+ -->
+        <uib-tabset active="active">
+            <uib-tab index="0">
+                <uib-tab-heading>
+                    <i class="fa fa-clock-o"></i> Details
+                </uib-tab-heading>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <tbody>
+                            <tr>
+                                <td><strong> Store name</strong></td>
+                                <td>
+                                    <form-element label="TITLE" mod="store">
+                                        <input type="text" class="form-control" name="title" placeholder="Title" ng-model="store.title" focus/>
+                                    </form-element>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong> Description</strong></td>
+                                <td>
+                                    <form-element label="DESCRIPTION" mod="store">
+                                        <input type="text" class="form-control" name="description" placeholder="Description" ng-model="store.description" focus/>
+                                    </form-element>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phone</strong></td>
+                                <td>
+                                    <form-element label="PHONE" mod="store">
+                                        <input type="number" class="form-control" name="phone" placeholder="Phone" ng-model="store.phone" focus/>
+                                    </form-element>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                        <div class="clearfix"></div>
+                        <div class="space"></div>
+                        <div class="space-4"></div>
+                        <div class="modal-footer">
+                            <form-element label="">
+                                <div class="text-right">
+                                    <a class="btn btn-sm btn-outline btn-primary btn-rounded" ng-click="cancel()"><i class="ace-icon fa fa-times"></i>Cancel</a>
+                                <a class="btn btn-sm btn-outline btn-warning btn-rounded" ng-click=""><i class="ace-icon fa fa-arrow-right"></i>Next</a>
+                                </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1">
+                <uib-tab-heading>
+                    <i class="fa fa-clock-o"></i> Timings
+                </uib-tab-heading>
+                <!-- <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Start</th>
+                                <th>End</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="day in timings">
+                                <td style="vertical-align: middle;">{{day.day}}</td>
+                                <td> {{day.start}} </td>
+                                <td> {{day.end}} </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <center>
+                                        <a type="button" class="btn btn-success btn-lg btn-outline btn-rounded fa fa-edit " ng-click="openTimings(timings);"> Edit </a>
+                                    </center>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+            </uib-tab>
+                        <uib-tab index="2">
+                <uib-tab-heading>
+                    <i class="fa fa-clock-o"></i> Location
+                </uib-tab-heading>
+                <div class="table-responsive">
+                    <div class="form-horizontal" style="">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Location:</label>
+                            <div class="col-sm-10">
+                                <input name="address" placeholder="Address"  type="text" class="form-control" id="us3-address" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Radius:</label>
+                            <div class="col-sm-5">
+                                <input name="radius" placeholder="Radius" ng-model="store.radius" type="text" class="form-control" id="us3-radius" />
+                            </div>
+                        </div>
+                        <div id="us3" style="width: 100%; height: 400px;"></div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="m-t-small">
+                            <label class="p-r-small col-sm-1 control-label">Lat.:</label>
+                            <div class="col-sm-3">
+                                <input name="latitude" placeholder="Latitude" ng-model="store.latitude" type="text" class="form-control" style="width: 110px" id="us3-lat" />
+                            </div>
+                            <label class="p-r-small col-sm-2 control-label">Long.:</label>
+                            <div class="col-sm-3">
+                                <input name="longitude" placeholder="Longitude" ng-model="store.longitude" type="text" class="form-control" style="width: 110px" id="us3-lon" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input name="address" placeholder="Define your location" ng-model="store.address" type="text" class="form-control" style="width: 110px" id="us3-lon" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="space"></div>
+                        <div class="space-4"></div>
+                        <div class="modal-footer">
+                            <form-element label="">
+                                <div class="text-right">
+                                    <script>
+                                    $('#us3').locationpicker({
+                                        location: {
+                                            latitude: 25,
+                                            longitude: 30
+                                        },
+                                        radius: 30,
+                                        inputBinding: {
+                                            latitudeInput: $('#us3-lat'),
+                                            longitudeInput: $('#us3-lon'),
+                                            radiusInput: $('#us3-radius'),
+                                            locationNameInput: $('#us3-address')
+                                        },
+                                        enableAutocomplete: true,
+                                        markerIcon: '../images/locationpicker.png'
+                                    });
+                                    $('#us6-dialog').on('shown.bs.modal', function() {
+                                        $('#us3').locationpicker('autosize');
+                                    });
+                                    </script>
+                                </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+        <div class="space"></div>
+        <div class="space-4"></div>
+        <div class="modal-footer">
+            <form-element label="">
+                <div class="text-right">
+                    <a class="btn btn-sm btn-outline btn-primary btn-rounded" ng-click="cancel()"><i class="ace-icon fa fa-times"></i>Cancel</a>
+                    <button ng-click="savestore(store);" ng-disabled="store_form.$invalid || enableUpdate" class="btn btn-sm btn-success btn-outline btn-rounded" type="submit">
+                        <i class="ace-icon fa fa-check"></i>Add
+                    </button>
+                </div>
+    </form>
+</div>
