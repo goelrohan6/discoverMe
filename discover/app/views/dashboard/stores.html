@@ -1,0 +1,96 @@
+<div>
+    <a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Reports</a>
+    <h2>Overview <small>Why is Ani Theme so awesome?</small></h2>
+    <google-map-locator class="google-map" location="{{location}}" radius="" on-location-initialize="onLocationInitialize(location)" on-location-change="onLocationChange(location)" on-map-loaded="onMapLoaded(map)">
+    </google-map-locator>
+    <h1 ng-bind="c.latitude"></h1>
+    <h1>{{c.longitude}}                </h1>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Welcome!</h1> I don't want to bloat this Ani Theme Free Edition AngularJS Admin theme with a lot of plugins. To install plugins we have bower. Let's keep it real clean!
+            <br />
+            <br />
+            <p>
+                <a class="btn btn-primary btn-lg btn-outline btn-rounded">Add store</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" ng-repeat="c in stores | filter:filterStore | orderBy:['name']">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{c.title}}</h3>
+                    <!-- Nav tabs -->
+                </div>
+                <div class="panel-body">
+                    <!-- Tab panes -->
+                    <uib-tabset active="active">
+                        <uib-tab index="0">
+                            <uib-tab-heading>
+                                <i class="fa fa-clock-o"></i> Details
+                            </uib-tab-heading>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong> Description</strong></td>
+                                            <td>{{c.description}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Phone</strong></td>
+                                            <td>9899939038</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                            </div>
+                                <a type="button" class="btn btn-success btn-lg fa fa-edit " ng-click="openDetails(c);"> Edit </a>
+                        </uib-tab>
+                        <uib-tab index="1">
+                            <uib-tab-heading>
+                                <i class="fa fa-clock-o"></i> Timings
+                            </uib-tab-heading>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: middle;">Monday</td>
+                                            <td>08:00 am </td>
+                                            <td> 10:00 pm </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle;">Tuesday</td>
+                                            <td>08:00 am </td>
+                                            <td> 10:00 pm </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle;">Wednesday</td>
+                                            <td>08:00 am </td>
+                                            <td> 10:00 pm </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                            </div>
+                                <a type="button" class="btn btn-success btn-lg fa fa-edit " ng-click="openTimings(c);"> Edit </a>
+                        </uib-tab>
+                        <uib-tab index="2">
+                            <uib-tab-heading>
+                                <i class="fa fa-clock-o"></i> Location
+                            </uib-tab-heading>
+                            <br/>
+                            <a type="button" class="btn btn-success btn-lg fa fa-edit " ng-click="openLocation(c,'lg');"> Edit </a>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
