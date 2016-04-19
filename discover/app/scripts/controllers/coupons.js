@@ -1,10 +1,11 @@
 angular.module('yapp')
-    .controller('couponsCtrl', function($scope, $state, $window, $uibModal, Data, $filter) {
+    .controller('couponsCtrl', function($scope, $state, $window, $uibModal, Data, $filter, _) {
         $scope.coupon = {};
         Data.get('coupons/1').then(function(data) {
             $scope.coupons = data.data;
         });
         $scope.changeCouponStatus = function(coupon) {
+            console.log("status func running");
             coupon.status = (coupon.status == "Active" ? "Inactive" : "Active");
             Data.put("coupons/" + coupon.id, { status: coupon.status });
         };
@@ -31,10 +32,11 @@ angular.module('yapp')
                     $scope.coupons.push(selectedObject);
                     $scope.coupons = $filter('orderBy')($scope.coupons, 'id', 'reverse');
                 } else if (selectedObject.save == "update") {
+                    p.title = selectedObject.title;
                     p.description = selectedObject.description;
-                    p.price = selectedObject.price;
-                    p.mrp = selectedObject.mrp;
+                    p.type = selectedObject.type;
                     p.stock = selectedObject.stock;
+                   
                     p.packing = selectedObject.packing;
                 }
             });
@@ -44,7 +46,7 @@ angular.module('yapp')
             { text: "ID", predicate: "id", sortable: true, dataType: "number" },
             { text: "Title", predicate: "Title", sortable: true },
             { text: "Category", predicate: "category", sortable: true },
-            { text: "description", predicate: "description",sortable: true},
+            { text: "title", predicate: "title",sortable: true},
             { text: "Status", predicate: "status", sortable: true },
             { text: "Action", predicate: "", sortable: false }
         ];
@@ -78,6 +80,7 @@ angular.module('yapp')
                 });
             } else {
                 coupon.status = 'Active';
+                coupon.placeid=1;
                 Data.post('coupons', coupon).then(function(result) {
                     if (result.status != 'error') {
                         var x = angular.copy(coupon);
@@ -89,5 +92,6 @@ angular.module('yapp')
                     }
                 });
             }
+
         };
     });

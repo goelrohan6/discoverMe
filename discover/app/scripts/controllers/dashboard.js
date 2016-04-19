@@ -6,6 +6,9 @@
  * # MainCtrl
  * Controller of yapp
  */
+ var latitude ;
+ var longitude ;
+ var radius = '30';
 angular.module('yapp')
     .controller('DashboardCtrl', function($scope, $state, $window, $uibModal, Data) {
         $scope.$state = $state;
@@ -14,16 +17,21 @@ angular.module('yapp')
         };
 
         $scope.store = {};
+        $scope.timings = {};
         Data.get('stores/1').then(function(data) {
             $scope.stores = data.data;
         });
+        Data.get('timings/1').then(function(data) {
+            $scope.timings = data.data;
+        });
+
         $scope.changeStoreStatus = function(store) {
             store.status = (store.status == "Active" ? "Inactive" : "Active");
-            Data.put("stores/" + store.id, { status: store.status });
+            Data.put("places/" + store.id, { status: store.status });
         };
         $scope.deleteStore = function(store) {
             if (confirm("Are you sure to remove the store")) {
-                Data.delete("stores/" + store.id).then(function(result) {
+                Data.delete("places/" + store.id).then(function(result) {
                     $scope.stores = _.without($scope.stores, _.findWhere($scope.stores, { id: store.id }));
                 });
             }
@@ -45,10 +53,7 @@ angular.module('yapp')
                     $scope.stores = $filter('orderBy')($scope.stores, 'id', 'reverse');
                 } else if (selectedObject.save == "update") {
                     p.description = selectedObject.description;
-                    p.price = selectedObject.price;
-                    p.mrp = selectedObject.mrp;
-                    p.stock = selectedObject.stock;
-                    p.packing = selectedObject.packing;
+                    p.title = selectedObject.title;
                 }
             });
         };
@@ -63,18 +68,18 @@ angular.module('yapp')
                     }
                 }
             });
-            modalInstance.result.then(function(selectedObject) {
-                if (selectedObject.save == "insert") {
-                    $scope.stores.push(selectedObject);
-                    $scope.stores = $filter('orderBy')($scope.stores, 'id', 'reverse');
-                } else if (selectedObject.save == "update") {
-                    p.description = selectedObject.description;
-                    p.price = selectedObject.price;
-                    p.mrp = selectedObject.mrp;
-                    p.stock = selectedObject.stock;
-                    p.packing = selectedObject.packing;
-                }
-            });
+                        // modalInstance.result.then(function(selectedObject) {
+                        //     if (selectedObject.save == "insert") {
+                        //         $scope.stores.push(selectedObject);
+                        //         $scope.stores = $filter('orderBy')($scope.stores, 'id', 'reverse');
+                        //     } else if (selectedObject.save == "update") {
+                        //         p.description = selectedObject.description;
+                        //         p.price = selectedObject.price;
+                        //         p.mrp = selectedObject.mrp;
+                        //         p.stock = selectedObject.stock;
+                        //         p.packing = selectedObject.packing;
+                        //     }
+                        // });
         };
         $scope.openLocation = function(p, size) {
             var modalInstance = $uibModal.open({
@@ -90,13 +95,13 @@ angular.module('yapp')
             modalInstance.result.then(function(selectedObject) {
                 if (selectedObject.save == "insert") {
                     $scope.stores.push(selectedObject);
-                    $scope.stores = $filter('orderBy')($scope.stores, 'id', 'reverse');
+                    // $scope.stores = $filter('orderBy')($scope.stores, 'id', 'reverse');
                 } else if (selectedObject.save == "update") {
-                    p.description = selectedObject.description;
-                    p.price = selectedObject.price;
-                    p.mrp = selectedObject.mrp;
-                    p.stock = selectedObject.stock;
-                    p.packing = selectedObject.packing;
+                    p.address = selectedObject.mrp;
+                    p.latitude = selectedObject.latitude;
+                    p.longitude = selectedObject.packing;
+                    p.radius = selectedObject.radius;
+
                 }
             });
         };
@@ -117,7 +122,7 @@ angular.module('yapp')
         $scope.savestore = function(store) {
             store.uid = $scope.uid;
             if (store.id > 0) {
-                Data.put('stores/' + store.id, store).then(function(result) {
+                Data.put('places/' + store.id, store).then(function(result) {
                     if (result.status != 'error') {
                         var x = angular.copy(store);
                         x.save = 'update';
@@ -128,7 +133,8 @@ angular.module('yapp')
                 });
             } else {
                 store.status = 'Active';
-                Data.post('stores', store).then(function(result) {
+                store.merchant_id = 1;
+                Data.post('places', store).then(function(result) {
                     if (result.status != 'error') {
                         var x = angular.copy(store);
                         x.save = 'insert';
@@ -142,25 +148,34 @@ angular.module('yapp')
         };
     })
     .controller('storeTimingsEditCtrl', function($scope, $uibModalInstance, item, Data) {
+        $scope.timings = angular.copy(item);
 
+        
+        $scope.startTime = new Date();
+        $scope.startTime.setHours(8);
+        $scope.startTime.setMinutes(0);
+        $scope.endTime = new Date();
+        $scope.endTime.setHours(20);
+        $scope.endTime.setMinutes(0);
+        $scope.hstep = 1;
+        $scope.mstep = 15;
 
-
-        $scope.store = angular.copy(item);
+        // $scope.timings = angular.copy(item);
         $scope.cancel = function() {
             $uibModalInstance.dismiss('Close');
         };
-        $scope.title = (item.id > 0) ? 'Edit store' : 'Add store';
-        $scope.buttonText = (item.id > 0) ? 'Update store' : 'Add New store';
+        $scope.title = 'Edit Timings';
+        $scope.buttonText ='Update Timings';
         var original = item;
         $scope.isClean = function() {
             return angular.equals(original, $scope.store);
         }
-        $scope.savestore = function(store) {
-            store.uid = $scope.uid;
-            if (store.id > 0) {
-                Data.put('stores/' + store.id, store).then(function(result) {
+        $scope.savestore = function(timings) {
+            timings.uid = $scope.uid;
+            if (timings.id > 0) {
+                Data.put('timings/' + timings.id, timings).then(function(result) {
                     if (result.status != 'error') {
-                        var x = angular.copy(store);
+                        var x = angular.copy(timings);
                         x.save = 'update';
                         $uibModalInstance.close(x);
                     } else {
@@ -168,10 +183,10 @@ angular.module('yapp')
                     }
                 });
             } else {
-                store.status = 'Active';
-                Data.post('stores', store).then(function(result) {
+                timings.status = 'Active';
+                Data.post('timings/1', timings).then(function(result) {
                     if (result.status != 'error') {
-                        var x = angular.copy(store);
+                        var x = angular.copy(timings);
                         x.save = 'insert';
                         x.id = result.data;
                         $uibModalInstance.close(x);
@@ -184,15 +199,6 @@ angular.module('yapp')
     })
     .controller('storeLocationEditCtrl', function($scope, $uibModalInstance, item, Data) {
 
-
-        $scope.startTime = new Date();
-        $scope.startTime.setHours(8);
-        $scope.startTime.setMinutes(0);
-        $scope.endTime = new Date();
-        $scope.endTime.setHours(20);
-        $scope.endTime.setMinutes(0);
-        $scope.hstep = 1;
-        $scope.mstep = 15;
         $scope.location = { latitude: 12.8139068, longitude: 77.6516683 };
         $scope.onLocationInitialize = function(location) {
             console.log("=====from controller=======");
@@ -208,6 +214,9 @@ angular.module('yapp')
         }
 
         $scope.store = angular.copy(item);
+        longitude = $scope.store.longitude;
+        latitude = $scope.store.latitude;
+        radius = $scope.store.radius;
         $scope.cancel = function() {
             $uibModalInstance.dismiss('Close');
         };
@@ -220,7 +229,7 @@ angular.module('yapp')
         $scope.savestore = function(store) {
             store.uid = $scope.uid;
             if (store.id > 0) {
-                Data.put('stores/' + store.id, store).then(function(result) {
+                Data.put('places/' + store.id, store).then(function(result) {
                     if (result.status != 'error') {
                         var x = angular.copy(store);
                         x.save = 'update';
@@ -231,7 +240,7 @@ angular.module('yapp')
                 });
             } else {
                 store.status = 'Active';
-                Data.post('stores', store).then(function(result) {
+                Data.post('places/1', store).then(function(result) {
                     if (result.status != 'error') {
                         var x = angular.copy(store);
                         x.save = 'insert';
