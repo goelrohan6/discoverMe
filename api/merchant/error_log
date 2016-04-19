@@ -1,0 +1,1 @@
+[28-Feb-2016 01:45:17 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/CorsSlim.php on line 5

@@ -1,0 +1,4 @@
+[28-Feb-2016 01:49:43 America/Chicago] PHP Fatal error:  Class 'Swift_DependencyContainer' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/swiftmailer/lib/dependency_maps/cache_deps.php on line 3
+[28-Feb-2016 01:49:44 America/Chicago] PHP Fatal error:  Class 'Swift_DependencyContainer' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/swiftmailer/lib/dependency_maps/message_deps.php on line 3
+[28-Feb-2016 01:49:44 America/Chicago] PHP Fatal error:  Class 'Swift_DependencyContainer' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/swiftmailer/lib/dependency_maps/mime_deps.php on line 5
+[28-Feb-2016 01:49:45 America/Chicago] PHP Fatal error:  Class 'Swift_DependencyContainer' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/swiftmailer/lib/dependency_maps/transport_deps.php on line 3

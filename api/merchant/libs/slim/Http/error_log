@@ -1,0 +1,2 @@
+[28-Feb-2016 01:49:21 America/Chicago] PHP Fatal error:  Class 'Slim\Helper\Set' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/slim/Http/Cookies.php on line 36
+[28-Feb-2016 01:49:22 America/Chicago] PHP Fatal error:  Class 'Slim\Helper\Set' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/slim/Http/Headers.php on line 43

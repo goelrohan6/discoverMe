@@ -1,0 +1,2 @@
+[28-Feb-2016 01:49:56 America/Chicago] PHP Fatal error:  Class 'Swift_Transport_EsmtpTransport' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/swiftmailer/tests/fixtures/EsmtpTransportFixture.php on line 4
+[28-Feb-2016 01:49:56 America/Chicago] PHP Fatal error:  Interface 'Swift_Mime_MimeEntity' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/swiftmailer/tests/fixtures/MimeEntityFixture.php on line 4

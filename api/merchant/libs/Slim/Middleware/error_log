@@ -1,0 +1,6 @@
+[28-Feb-2016 01:46:58 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/Slim/Middleware/PrettyExceptions.php on line 46
+[28-Feb-2016 01:46:58 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/Slim/Middleware/MethodOverride.php on line 50
+[28-Feb-2016 01:46:58 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/Slim/Middleware/Flash.php on line 48
+[28-Feb-2016 01:46:58 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/Slim/Middleware/ContentTypes.php on line 49
+[28-Feb-2016 01:46:58 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/Slim/Middleware/CorsSlim.php on line 5
+[28-Feb-2016 01:46:58 America/Chicago] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/bookfoxi/public_html/discover.me/android_api/merchant/libs/Slim/Middleware/SessionCookie.php on line 58
