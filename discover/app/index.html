@@ -14,8 +14,21 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css"> -->
 
     <!-- endbuild -->
+
+    <!-- location -->
+<!--     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    // be careful to include the parameter "libraries=places"
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <script src="js/locationpicker.jquery.js"></script> -->
+    <style>
+        .pac-container {
+            z-index: 99999;
+        }
+    </style>
 </head>
 
 <body ng-app="yapp">
@@ -51,16 +64,20 @@
     <script src="../bower_components/ui-router/release/angular-ui-router.js"></script>
     <script src="../bower_components/angular-animate/angular-animate.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/lib/angular-googlemap-location-picker.js"></script>
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?key=AIzaSyAdNk3HxzyDxQD-I1BVHoZJXoaDz77StGA&sensor=false&libraries=places'></script><!-- NEW ROHAN -->
+    <script type="text/javascript" src="scripts/lib/locationpicker.jquery.js"></script>
+    <script src="scripts/lib/angular-googlemap-location-picker.js"></script><!--  OLD LAKSHIT  -->
     <script src="scripts/app.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/coupons.js"></script>
     <!-- endbuild -->
+    
 </body>
 
 </html>
